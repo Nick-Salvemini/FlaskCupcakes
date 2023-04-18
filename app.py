@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, flash, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Cupcake
+from forms import AddCupcakeForm
 from sqlalchemy import text
 
 app = Flask(__name__)
@@ -14,10 +15,18 @@ debug = DebugToolbarExtension(app)
 
 connect_db(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     cupcakes = Cupcake.query.all()
-    return render_template('home.html', cupcakes=cupcakes) 
+    form = AddCupcakeForm
+    
+    form.validate_on_submit():
+        flavor = form.flavor.data
+        size = form.size.data
+        rating = form.rating.data
+        image =  form.image.data
+    
+    return render_template('home.html', cupcakes=cupcakes, form=form) 
 
 @app.route('/api/cupcakes')
 def get_all_cupcakes():

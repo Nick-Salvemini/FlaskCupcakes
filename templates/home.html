@@ -9,6 +9,19 @@
 </head>
 
 <body>
+    <h1>Add New Cupcake</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <p>
+            {{ field.label }}
+            {{ field }}
+        </p>
+        {% endfor %}
+
+    </form>
+
+    <h2>All Cupcakes</h2>
     <ul>
         {% for cupcake in cupcakes %}
         <li>{{cupcake.flavor}}</li>
