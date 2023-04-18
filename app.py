@@ -17,7 +17,6 @@ connect_db(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    cupcakes = Cupcake.query.all()
     form = AddCupcakeForm()
     
     if form.validate_on_submit():
@@ -28,8 +27,10 @@ def home():
         new_cupcake = Cupcake(flavor=flavor, size=size, rating=rating, image=image)
         db.session.add(new_cupcake)
         db.session.commit()
+        cupcakes = Cupcake.query.all()
         return render_template('home.html', cupcakes=cupcakes, form=form)
     else:
+        cupcakes = Cupcake.query.all()
         return render_template('home.html', cupcakes=cupcakes, form=form) 
 
 @app.route('/api/cupcakes')
