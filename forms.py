@@ -6,5 +6,5 @@ class AddCupcakeForm(FlaskForm):
 
     flavor = StringField('Flavor')
     size = SelectField('Size', choices=['Small', 'Medium', 'Large'])
-    rating = FloatField('Rating', NumberRange(min=0, max=10))
+    rating = FloatField('Rating')
     image = URLField('Image')
